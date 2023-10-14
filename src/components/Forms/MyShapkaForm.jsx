@@ -4,8 +4,9 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-import Swal from "sweetalert2";
+
 import words from "../../words"
+import MyModalWindow from "../../tools/modal_window/MyModalWindow";
 
 const MyShapkaForm = ({getUrl}) => {
     let formdata = new FormData();
@@ -16,36 +17,36 @@ const MyShapkaForm = ({getUrl}) => {
     let handleSubmit = (e) => {
             e.preventDefault();
             if (data.name === "" || file === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ошибка',
-                    text: 'Вы ввели не все поля'
-                })
+                MyModalWindow('error', 'Ошибка', 'Вы ввели не все поля')
             } else {
                 if (words.some(word => data.name.toLowerCase().includes(word))) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'О нет матюки!',
-                        text: 'Ругаться плохо'
-                    })
+                    MyModalWindow('error', 'О нет матюки', 'Ругаться это плохо')
                 } else {
                     let headers = {'Content-Type': file.type}
-                    console.log(data.name)
-                    console.log(file)
+                    let size = 0;
                     for (let i = 0; i < file.length; i++) {
-                        let tempFile = file[i];
-                        formdata.append("files", tempFile)
+                        size += file[i].size;
                     }
-                    formdata.append("name", data.name)
-                    axios.post('http://127.0.0.1:8000/api/endpoint_shapka', formdata, headers)
-                        .then(response => {
-                            console.log("Картинка пришла");
-                            console.log(response.data);
-                            getUrl(response.data);
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+                    if (size > 53687091200) {
+                        MyModalWindow('error', 'Файл слишком велик', 'Его вес превышает допустимое значение')
+                    } else {
+                        for (let i = 0; i < file.length; i++) {
+                            let tempFile = file[i];
+                            formdata.append("files", tempFile)
+                        }
+                        formdata.append("name", data.name)
+                        axios.post('http://127.0.0.1:8000/api/endpoint_shapka', formdata, headers)
+                            .then(response => {
+                                console.log("Картинка пришла");
+                                console.log(response.data);
+                                getUrl(response.data);
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+
+                    }
+
                 }
             }
         }

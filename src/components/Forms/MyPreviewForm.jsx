@@ -3,10 +3,11 @@ import MyLabel from "../UI/label/MyLabel";
 import MyInput from "../UI/input/MyInput";
 import MyTextArea from "../UI/textarea/MyTextArea";
 import MyButton from "../UI/button/MyButton";
-import axios, {get} from "axios";
+import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-import Swal from "sweetalert2";
+
 import words from "../../words"
+import MyModalWindow from "../../tools/modal_window/MyModalWindow";
 
 const MyPreviewForm = ({getList}) => {
     let formdata = new FormData();
@@ -18,19 +19,16 @@ const MyPreviewForm = ({getList}) => {
         e.preventDefault();
 
         if (data.name === "" || data.description === "" || file === null) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Ошибка',
-                text: 'Вы ввели не все поля'
-            })
+            MyModalWindow('error', 'Ошибка', 'Вы ввели не все поля')
         } else {
             if (words.some(word => data.name.toLowerCase().includes(word)) || words.some(word => data.description.toLowerCase().includes(word))) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'О нет матюки!',
-                    text: 'Ругаться плохо'
-                })
-            } else {
+                MyModalWindow('error', 'О нет матюки', 'Ругаться это плохо')
+
+            }
+            else if (file.size > 10737418240){
+                MyModalWindow('error', 'Файл слишком велик', 'Его вес превышает допустимое значение')
+            }
+            else {
                 formdata.append("file", file)
                 formdata.append("data", data.name)
 
@@ -53,7 +51,7 @@ const MyPreviewForm = ({getList}) => {
     };
 
     return (
-        <div>
+        <div >
             <div>
                 <div className="flex items-center justify-between">
                     <MyLabel

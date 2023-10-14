@@ -7,7 +7,7 @@ import MyAvatarForm from "./MyAvatarForm";
 import MyShapkaForm from "./MyShapkaForm";
 import MySelect from "../UI/select/MySelect";
 import ImageEditor from "../ImageEditor";
-import MyImage from "../UI/image/MyImage";
+
 import MyImageList from "../UI/image/MyImageList";
 
 const MyForm = () => {
@@ -38,7 +38,7 @@ const MyForm = () => {
 
         if (selectedOption === "video") {
             return (
-                <div>
+                <div className="flex w-full">
                     <MyPreviewForm
                         getList={getImageList}
 
@@ -51,7 +51,7 @@ const MyForm = () => {
             );
         } else if (selectedOption === "avatar") {
             return (
-                <div>
+                <div className="flex w-full">
                     <MyAvatarForm
                         getUrl={getImageUrl}
                     ></MyAvatarForm>
@@ -63,7 +63,7 @@ const MyForm = () => {
             );
         } else if (selectedOption === "shapka") {
             return (
-                <div>
+                <div className="flex w-full">
                     <MyShapkaForm
                         getUrl={getImageUrl}
                     ></MyShapkaForm>
@@ -81,7 +81,7 @@ const MyForm = () => {
     return (
         <div className="flex min-h-full w-full flex-1 flex-col justify-center ">
             <div className="mt-10 sm:mx-auto w-full sm:max-w-lg">
-                <div>
+                <div className=" w-full">
                     <MySelect
                         selectedOption={selectedOption}
                         handleChange={handleChange}

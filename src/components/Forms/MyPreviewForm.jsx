@@ -3,12 +3,12 @@ import MyLabel from "../UI/label/MyLabel";
 import MyInput from "../UI/input/MyInput";
 import MyTextArea from "../UI/textarea/MyTextArea";
 import MyButton from "../UI/button/MyButton";
-import axios from "axios";
+import axios, {get} from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
 import Swal from "sweetalert2";
 import words from "../../words"
 
-const MyPreviewForm = ({getUrl}) => {
+const MyPreviewForm = ({getList}) => {
     let formdata = new FormData();
 
     let [data, setData] = useState({name: '', description: ''})
@@ -33,12 +33,15 @@ const MyPreviewForm = ({getUrl}) => {
             } else {
                 formdata.append("file", file)
                 formdata.append("data", data.name)
+
+                console.log(formdata)
+
                 axios.post('http://127.0.0.1:8000/api/endpoint_video', formdata, {headers:{
-                    'Content-Type': file.type, "Filename": file.name
+                    'Content-Type': file.type, "Filename": unescape(encodeURIComponent(file.name))
                     }})
                     .then(response => {
-
-                        getUrl(response.data);
+                        console.log(response.data);
+                        getList(response.data);
                     })
                     .catch(error => {
                         console.error(error);

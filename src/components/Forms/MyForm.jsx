@@ -8,11 +8,13 @@ import MyShapkaForm from "./MyShapkaForm";
 import MySelect from "../UI/select/MySelect";
 import ImageEditor from "../ImageEditor";
 import MyImage from "../UI/image/MyImage";
+import MyImageList from "../UI/image/MyImageList";
 
 const MyForm = () => {
 
     let [selectedOption, setSelectedOption] = useState("");
     let [image, setImage] = useState("");
+    let [imageList, setImageList] = useState([""])
     let options = [
         {value: "choose", label: 'Выбор что'},
         {value: "video", label: 'Превью для видео'},
@@ -23,9 +25,12 @@ const MyForm = () => {
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
         setImage("");
+        setImageList([""])
     };
 
-
+    let getImageList = (imgList) => {
+        setImageList(imgList)
+    }
     let getImageUrl = (imageUrl) => {
         setImage(imageUrl);
     }
@@ -35,9 +40,13 @@ const MyForm = () => {
             return (
                 <div>
                     <MyPreviewForm
-                        getUrl={getImageUrl}
-                    ></MyPreviewForm>
+                        getList={getImageList}
 
+                    ></MyPreviewForm>
+                    <br></br>
+                    <MyImageList
+                        list={imageList}
+                    ></MyImageList>
                 </div>
             );
         } else if (selectedOption === "avatar") {
@@ -46,6 +55,10 @@ const MyForm = () => {
                     <MyAvatarForm
                         getUrl={getImageUrl}
                     ></MyAvatarForm>
+                    <br></br>
+                    <div className="mt-10 sm:mx-auto w-full sm:max-w-2xl">
+                        <ImageEditor image={image} setImage={setImage}></ImageEditor>
+                    </div>
                 </div>
             );
         } else if (selectedOption === "shapka") {
@@ -54,6 +67,10 @@ const MyForm = () => {
                     <MyShapkaForm
                         getUrl={getImageUrl}
                     ></MyShapkaForm>
+                    <br></br>
+                    <div className="mt-10 sm:mx-auto w-full sm:max-w-2xl">
+                        <ImageEditor image={image} setImage={setImage}></ImageEditor>
+                    </div>
                 </div>
             );
         }
@@ -77,9 +94,7 @@ const MyForm = () => {
                     <br></br>
                 </div>
 
-                <div className="mt-10 sm:mx-auto w-full sm:max-w-2xl">
-                    <ImageEditor image={image} setImage={setImage}></ImageEditor>
-                </div>
+
             </div>
         </div>
     )

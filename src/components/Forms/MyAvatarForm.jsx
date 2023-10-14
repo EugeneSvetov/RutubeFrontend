@@ -30,7 +30,6 @@ const MyAvatarForm = ({getUrl}) => {
         };
 
         let handleSubmit = (e) => {
-            console.log(strength)
             e.preventDefault();
             if (selectedOption === "" || file === null) {
                 Swal.fire({

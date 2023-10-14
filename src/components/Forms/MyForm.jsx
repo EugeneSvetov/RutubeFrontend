@@ -6,9 +6,8 @@ import MyPreviewForm from "./MyPreviewForm";
 import MyAvatarForm from "./MyAvatarForm";
 import MyShapkaForm from "./MyShapkaForm";
 import MySelect from "../UI/select/MySelect";
-import MyImage from "../UI/image/MyImage";
-import FilerobotImageEditor, {TABS, TOOLS} from "react-filerobot-image-editor";
 import ImageEditor from "../ImageEditor";
+import MyImage from "../UI/image/MyImage";
 
 const MyForm = () => {
 
@@ -77,8 +76,9 @@ const MyForm = () => {
                     {renderFields()}
                     <br></br>
                 </div>
+
                 <div className="mt-10 sm:mx-auto w-full sm:max-w-2xl">
-                    <ImageEditor image={image}></ImageEditor>
+                    <ImageEditor image={image} setImage={setImage}></ImageEditor>
                 </div>
             </div>
         </div>

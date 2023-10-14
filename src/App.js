@@ -4,6 +4,8 @@ import MyForm from "./components/Forms/MyForm";
 import React, {useState} from "react";
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {Dialog} from "@headlessui/react";
+import MyImage from "./components/UI/image/MyImage";
+import ImageEditor from "./components/ImageEditor";
 
 function App() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -96,7 +98,6 @@ function App() {
 
                     </div>
                 </div>
-
             </div>
         </div>
     );

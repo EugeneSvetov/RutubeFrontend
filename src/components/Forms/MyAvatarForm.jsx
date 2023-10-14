@@ -77,6 +77,7 @@ const MyAvatarForm = ({getUrl}) => {
                         <RangeSlider
                         value={strength}
                         onChange={e => setStrength(e.target.value)}
+
                         >
 
                         </RangeSlider>

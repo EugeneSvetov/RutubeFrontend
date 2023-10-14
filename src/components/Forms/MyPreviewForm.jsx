@@ -31,12 +31,11 @@ const MyPreviewForm = ({getUrl}) => {
                     text: 'Ругаться плохо'
                 })
             } else {
-                let headers = {'Content-Type': file.type}
-
                 formdata.append("file", file)
-                formdata.append("name", data.name)
-                formdata.append("description", data.description)
-                axios.post('http://127.0.0.1:8000/api/endpoint_video', formdata, headers)
+                formdata.append("data", data.name)
+                axios.post('http://127.0.0.1:8000/api/endpoint_video', formdata, {headers:{
+                    'Content-Type': file.type, "Filename": file.name
+                    }})
                     .then(response => {
 
                         getUrl(response.data);

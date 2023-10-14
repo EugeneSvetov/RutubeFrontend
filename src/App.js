@@ -19,7 +19,7 @@ function App() {
                             <span className="sr-only">Your Company</span>
                             <img
                                 className="h-8 w-auto"
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Cooler_Master_black_logo.svg/1200px-Cooler_Master_black_logo.svg.png"
+                                src="https://asu.bspu.ru/img/rutube.png"
                                 alt=""
                             />
                         </a>

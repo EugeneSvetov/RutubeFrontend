@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import MyLabel from "../UI/label/MyLabel";
-import MyInput from "../UI/input/MyInput";
+
 import MyButton from "../UI/button/MyButton";
 import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-import Swal from "sweetalert2";
-import words from "../../words"
+
 import MySelect from "../UI/select/MySelect";
 import RangeSlider from "../UI/input/RangeSlider";
+import MyModalWindow from "../../tools/modal_window/MyModalWindow";
 
 const MyAvatarForm = ({getUrl}) => {
         let formdata = new FormData();
@@ -32,11 +32,7 @@ const MyAvatarForm = ({getUrl}) => {
         let handleSubmit = (e) => {
             e.preventDefault();
             if (selectedOption === "" || file === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ошибка',
-                    text: 'Вы ввели не все поля'
-                })
+                MyModalWindow('error', 'Ошибка', 'Вы ввели не все поля')
             } else {
                 let headers = {'Content-Type': "multipart/form-data"}
                 formdata.append("file", file)

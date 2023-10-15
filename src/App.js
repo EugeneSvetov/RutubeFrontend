@@ -18,7 +18,7 @@ function App() {
                         <a className="-m-1.5 p-1.5">
                             <span className="sr-only">Your Company</span>
                             <img
-                                className="h-8 w-auto"
+                                className="h-9 w-auto"
                                 src="https://asu.bspu.ru/img/rutube.png"
                                 alt=""
                             />

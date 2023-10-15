@@ -1,6 +1,5 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import FilerobotImageEditor, {TABS, TOOLS} from "react-filerobot-image-editor";
-import Upscaler from 'upscaler';
 
 const ImageEditor = ({image, setImage}) => {
         console.log(image)

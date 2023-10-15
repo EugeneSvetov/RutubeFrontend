@@ -7,7 +7,7 @@ import MyAvatarForm from "./MyAvatarForm";
 import MyShapkaForm from "./MyShapkaForm";
 import MySelect from "../UI/select/MySelect";
 import ImageEditor from "../ImageEditor";
-import MyImage from "../UI/image/MyImage";
+
 import MyImageList from "../UI/image/MyImageList";
 
 const MyForm = () => {
@@ -16,7 +16,7 @@ const MyForm = () => {
     let [image, setImage] = useState("");
     let [imageList, setImageList] = useState([""])
     let options = [
-        {value: "choose", label: 'Выбор что'},
+        {value: "choose", label: 'Выбрать объект генерации'},
         {value: "video", label: 'Превью для видео'},
         {value: "avatar", label: 'Аватарка для канала'},
         {value: "shapka", label: 'Шапка для канала'}]

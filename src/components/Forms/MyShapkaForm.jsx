@@ -4,8 +4,9 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-import Swal from "sweetalert2";
+
 import words from "../../words"
+import MyModalWindow from "../../tools/MyModalWindow";
 
 const MyShapkaForm = ({getUrl}) => {
     let formdata = new FormData();
@@ -16,22 +17,12 @@ const MyShapkaForm = ({getUrl}) => {
     let handleSubmit = (e) => {
             e.preventDefault();
             if (data.name === "" || file === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ошибка',
-                    text: 'Вы ввели не все поля'
-                })
+                MyModalWindow('error', 'Ошибка', 'Вы не ввели некоторые поля')
             } else {
                 if (words.some(word => data.name.toLowerCase().includes(word))) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'О нет матюки!',
-                        text: 'Ругаться плохо'
-                    })
+                    MyModalWindow('error', 'Ошибка','Введенный текст не прошел цензуру')
                 } else {
                     let headers = {'Content-Type': file.type}
-                    console.log(data.name)
-                    console.log(file)
                     for (let i = 0; i < file.length; i++) {
                         let tempFile = file[i];
                         formdata.append("files", tempFile)
@@ -39,8 +30,6 @@ const MyShapkaForm = ({getUrl}) => {
                     formdata.append("name", data.name)
                     axios.post('http://127.0.0.1:8000/api/endpoint_shapka', formdata, headers)
                         .then(response => {
-                            console.log("Картинка пришла");
-                            console.log(response.data);
                             getUrl(response.data);
                         })
                         .catch(error => {

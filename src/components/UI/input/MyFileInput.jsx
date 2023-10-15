@@ -10,7 +10,7 @@ const MyFileInput = ({text, children, ...props}) => {
                 {...props}
                 required
             />
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">{text}</p>
+            <p className="mt-1 text-sm text-gray-500" id="file_input_help">{text}</p>
         </div>
     );
 };

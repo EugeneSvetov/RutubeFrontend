@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import MyLabel from "../UI/label/MyLabel";
-import MyInput from "../UI/input/MyInput";
+
 import MyButton from "../UI/button/MyButton";
 import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-import Swal from "sweetalert2";
-import words from "../../words"
+
 import MySelect from "../UI/select/MySelect";
 import RangeSlider from "../UI/input/RangeSlider";
+import MyModalWindow from "../../tools/MyModalWindow";
 
 const MyAvatarForm = ({getUrl}) => {
         let formdata = new FormData();
@@ -32,11 +32,7 @@ const MyAvatarForm = ({getUrl}) => {
         let handleSubmit = (e) => {
             e.preventDefault();
             if (selectedOption === "" || file === null) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ошибка',
-                    text: 'Вы ввели не все поля'
-                })
+                MyModalWindow('error', 'Ошибка','Вы не ввели некоторые поля')
             } else {
                 let headers = {'Content-Type': "multipart/form-data"}
                 formdata.append("file", file)
@@ -44,8 +40,6 @@ const MyAvatarForm = ({getUrl}) => {
                 formdata.append("strength", strength)
                 axios.post('http://127.0.0.1:8000/api/endpoint_avatar', formdata, headers)
                     .then(response => {
-                        console.log("Картинка пришла");
-                        console.log(response.data);
                         getUrl(response.data);
                     })
                     .catch(error => {

@@ -4,9 +4,8 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
-
+import Swal from "sweetalert2";
 import words from "../../words"
-import MyModalWindow from "../../tools/MyModalWindow";
 
 const MyShapkaForm = ({getUrl}) => {
     let formdata = new FormData();
@@ -16,20 +15,32 @@ const MyShapkaForm = ({getUrl}) => {
 
     let handleSubmit = (e) => {
             e.preventDefault();
-            if (data.name === "" || file === null) {
-                MyModalWindow('error', 'Ошибка', 'Вы не ввели некоторые поля')
+            if (data.name === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ошибка',
+                    text: 'Вы ввели не все поля'
+                })
             } else {
                 if (words.some(word => data.name.toLowerCase().includes(word))) {
-                    MyModalWindow('error', 'Ошибка','Введенный текст не прошел цензуру')
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'О нет матюки!',
+                        text: 'Ругаться плохо'
+                    })
                 } else {
-                    let headers = {'Content-Type': file.type}
-                    for (let i = 0; i < file.length; i++) {
-                        let tempFile = file[i];
-                        formdata.append("files", tempFile)
-                    }
+                    // let headers = {'Content-Type': file.type}
+                    console.log(data.name)
+                    console.log(file)
+                    // for (let i = 0; i < file.length; i++) {
+                    //     let tempFile = file[i];
+                    //     formdata.append("files", tempFile)
+                    // }
                     formdata.append("name", data.name)
-                    axios.post('http://127.0.0.1:8000/api/endpoint_shapka', formdata, headers)
+                    axios.post('http://127.0.0.1:8000/api/endpoint_shapka', formdata)
                         .then(response => {
+                            console.log("Картинка пришла");
+                            console.log(response.data);
                             getUrl(response.data);
                         })
                         .catch(error => {
@@ -57,22 +68,6 @@ const MyShapkaForm = ({getUrl}) => {
                 </div>
             </div>
             <br></br>
-            <div>
-                <div className="flex items-center justify-between">
-                    <MyLabel
-                        value={"Несколько видео с канала"}>
-                    </MyLabel>
-                </div>
-                <div className="mt-2">
-                    <MyFileInput
-                        onChange={(e) => setFile(e.target.files)}
-                        text={"MP4, WAV, MOV or AVI (MAX. 50GB)"}
-                        accept="video/*"
-                    >
-
-                    </MyFileInput>
-                </div>
-            </div>
             <br></br>
             <div>
                 <MyButton

@@ -15,6 +15,7 @@ const MyForm = () => {
     let [selectedOption, setSelectedOption] = useState("");
     let [image, setImage] = useState("");
     let [imageList, setImageList] = useState([""])
+
     let options = [
         {value: "choose", label: 'Выбрать объект генерации'},
         {value: "video", label: 'Превью для видео'},
@@ -34,7 +35,7 @@ const MyForm = () => {
     let getImageUrl = (imageUrl) => {
         setImage(imageUrl);
     }
-    const renderFields = (value) => {
+    const renderFields = () => {
 
         if (selectedOption === "video") {
             return (

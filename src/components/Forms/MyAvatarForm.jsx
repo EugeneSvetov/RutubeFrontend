@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import MyLabel from "../UI/label/MyLabel";
 
 import MyButton from "../UI/button/MyButton";
-import axios from "axios";
 import MyFileInput from "../UI/input/MyFileInput";
 
 import MySelect from "../UI/select/MySelect";
 import RangeSlider from "../UI/input/RangeSlider";
 import MyModalWindow from "../../tools/MyModalWindow";
+import Post from "../../tools/Post";
 
 const MyAvatarForm = ({getUrl}) => {
         let formdata = new FormData();
@@ -38,13 +38,7 @@ const MyAvatarForm = ({getUrl}) => {
                 formdata.append("file", file)
                 formdata.append("style", selectedOption)
                 formdata.append("strength", strength)
-                axios.post('http://127.0.0.1:8000/api/endpoint_avatar', formdata, headers)
-                    .then(response => {
-                        getUrl(response.data);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                Post('http://127.0.0.1:8000/api/endpoint_avatar', formdata, headers, getUrl);
             }
         }
         return (

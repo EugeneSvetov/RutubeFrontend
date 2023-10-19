@@ -2,7 +2,6 @@ import React from 'react';
 import FilerobotImageEditor, {TABS, TOOLS} from "react-filerobot-image-editor";
 
 const ImageEditor = ({image, setImage}) => {
-        console.log(image)
 
         let download = (data) => {
             let link = document.createElement('a');
@@ -28,7 +27,6 @@ const ImageEditor = ({image, setImage}) => {
                 />
             )
         } else {
-            console.log('ffff')
             return <></>
         }
     }

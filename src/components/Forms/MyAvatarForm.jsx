@@ -6,11 +6,10 @@ import MyFileInput from "../UI/input/MyFileInput";
 
 import MySelect from "../UI/select/MySelect";
 import RangeSlider from "../UI/input/RangeSlider";
-import MyModalWindow from "../../tools/MyModalWindow";
-import Post from "../../tools/Post";
+
+import Submit from "../../tools/Submit";
 
 const MyAvatarForm = ({getUrl}) => {
-        let formdata = new FormData();
 
         let [selectedOption, setSelectedOption] = useState("");
         let [file, setFile] = useState(null);
@@ -31,15 +30,7 @@ const MyAvatarForm = ({getUrl}) => {
 
         let handleSubmit = (e) => {
             e.preventDefault();
-            if (selectedOption === "" || file === null) {
-                MyModalWindow('error', 'Ошибка','Вы не ввели некоторые поля')
-            } else {
-                let headers = {'Content-Type': "multipart/form-data"}
-                formdata.append("file", file)
-                formdata.append("style", selectedOption)
-                formdata.append("strength", strength)
-                Post('http://127.0.0.1:8000/api/endpoint_avatar', formdata, headers, getUrl);
-            }
+            Submit({}, file, strength, selectedOption, "avatar", getUrl)
         }
         return (
             <div>

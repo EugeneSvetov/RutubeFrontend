@@ -5,36 +5,18 @@ import MyButton from "../UI/button/MyButton";
 
 import MyFileInput from "../UI/input/MyFileInput";
 
-import words from "../../words"
-import MyModalWindow from "../../tools/MyModalWindow";
-import Post from "../../tools/Post";
+import Submit from "../../tools/Submit";
 
 const MyShapkaForm = ({getUrl}) => {
-    let formdata = new FormData();
 
     let [data, setData] = useState({name: ''})
     let [file, setFile] = useState(null);
 
     let handleSubmit = (e) => {
-            e.preventDefault();
-            if (data.name === "" || file === null) {
-                MyModalWindow('error', 'Ошибка', 'Вы не ввели некоторые поля')
-            } else {
-                if (words.some(word => data.name.toLowerCase().includes(word))) {
-                    MyModalWindow('error', 'Ошибка', 'Введенный текст не прошел цензуру')
-                } else {
-                    let headers = {'Content-Type': file.type}
-                    for (let i = 0; i < file.length; i++) {
-                        let tempFile = file[i];
-                        formdata.append("files", tempFile)
-                    }
-                    formdata.append("name", data.name)
-                    Post('http://127.0.0.1:8000/api/endpoint_shapka', formdata, headers, getUrl);
+        e.preventDefault();
+        Submit(data, file, 0, "", "shapka", getUrl);
+    }
 
-                }
-            }
-        }
-    ;
     return (
         <div>
             <div>

@@ -5,37 +5,16 @@ import MyTextArea from "../UI/textarea/MyTextArea";
 import MyButton from "../UI/button/MyButton";
 import MyFileInput from "../UI/input/MyFileInput";
 
-import words from "../../words"
-import MyModalWindow from "../../tools/MyModalWindow";
-import Post from "../../tools/Post";
+import Submit from "../../tools/Submit";
 
 const MyPreviewForm = ({getList}) => {
-    let formdata = new FormData();
 
     let [data, setData] = useState({name: '', description: ''})
     let [file, setFile] = useState(null);
 
     let handleSubmit = (e) => {
         e.preventDefault();
-
-        if (data.name === "" || data.description === "" || file === null) {
-            MyModalWindow('error', 'Ошибка', 'Вы не ввели некоторые поля')
-        } else {
-            if (words.some(word => data.name.toLowerCase().includes(word)) || words.some(word => data.description.toLowerCase().includes(word))) {
-                MyModalWindow('error', 'Ошибка', 'Введенный текст не прошел цензуру')
-            } else {
-                formdata.append("file", file)
-                formdata.append("data", data.name)
-                let headers = {
-                    headers: {
-                        'Content-Type': file.type, "Filename": unescape(encodeURIComponent(file.name))
-                    }
-                }
-                Post('http://127.0.0.1:8000/api/endpoint_video', formdata, headers, getList)
-            }
-
-        }
-
+        Submit(data, file, 0, "", "preview", getList);
     };
 
     return (
